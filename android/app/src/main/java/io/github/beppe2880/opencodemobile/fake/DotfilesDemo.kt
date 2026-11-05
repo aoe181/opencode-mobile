@@ -58,7 +58,7 @@ internal class DotfilesDemo(private val store: FakeStore, private val events: Fa
     }
 
     private suspend fun afterBackup() {
-        send(ServerEvent.ToolCalled(SESSION, "a_1", "c_backup", BACKUP_INPUT))
+        send(ServerEvent.ToolCalled(SESSION, "a_1", "c_backup", BACKUP_INPUT, now()))
         delay(500)
         send(ServerEvent.ToolSucceeded(SESSION, "a_1", "c_backup", "", emptyMap(), now()))
         send(ServerEvent.StepEnded(SESSION, "a_1", "tool-calls", 0.0118, TokenUsage(input = 2_400, output = 310, cacheRead = 18_200), now()))
@@ -115,7 +115,7 @@ internal class DotfilesDemo(private val store: FakeStore, private val events: Fa
     private var summary = ""
 
     private suspend fun afterReload() {
-        send(ServerEvent.ToolCalled(SESSION, "a_2", "c_reload", RELOAD_INPUT))
+        send(ServerEvent.ToolCalled(SESSION, "a_2", "c_reload", RELOAD_INPUT, now()))
         delay(700)
         send(ServerEvent.ToolSucceeded(SESSION, "a_2", "c_reload", "27", emptyMap(), now()))
         send(ServerEvent.StepEnded(SESSION, "a_2", "tool-calls", 0.0214, TokenUsage(input = 3_100, output = 820, reasoning = 140, cacheRead = 21_600), now()))
@@ -157,7 +157,7 @@ internal class DotfilesDemo(private val store: FakeStore, private val events: Fa
 
     private suspend fun tool(messageId: String, callId: String, name: String, input: String, output: String, runMs: Long, diffs: List<FileDiff> = emptyList()) {
         send(ServerEvent.ToolInputStarted(SESSION, messageId, callId, name, now()))
-        send(ServerEvent.ToolCalled(SESSION, messageId, callId, input))
+        send(ServerEvent.ToolCalled(SESSION, messageId, callId, input, now()))
         delay(runMs)
         send(ServerEvent.ToolSucceeded(SESSION, messageId, callId, output, emptyMap(), now(), diffs))
     }
@@ -219,10 +219,10 @@ internal class DotfilesDemo(private val store: FakeStore, private val events: Fa
                 ServerEvent.ReasoningStarted(SESSION, "a_1", 0, t + 1_200),
                 ServerEvent.ReasoningEnded(SESSION, "a_1", 0, "I'll read the aliases first, look for duplicates across the dotfiles, and back the file up before touching it.", t + 3_400),
                 ServerEvent.ToolInputStarted(SESSION, "a_1", "c_read", "read", t + 3_500),
-                ServerEvent.ToolCalled(SESSION, "a_1", "c_read", """{"filePath":"$FILE"}"""),
+                ServerEvent.ToolCalled(SESSION, "a_1", "c_read", """{"filePath":"$FILE"}""", t + 3_500),
                 ServerEvent.ToolSucceeded(SESSION, "a_1", "c_read", aliases, emptyMap(), t + 3_900),
                 ServerEvent.ToolInputStarted(SESSION, "a_1", "c_grep", "grep", t + 4_000),
-                ServerEvent.ToolCalled(SESSION, "a_1", "c_grep", """{"pattern":"^alias ","path":"/home/user"}"""),
+                ServerEvent.ToolCalled(SESSION, "a_1", "c_grep", """{"pattern":"^alias ","path":"/home/user"}""", t + 4_000),
                 ServerEvent.ToolSucceeded(SESSION, "a_1", "c_grep", "Found 11 matches in 2 files", emptyMap(), t + 4_600),
                 ServerEvent.TextStarted(SESSION, "a_1", 1),
                 ServerEvent.TextEnded(SESSION, "a_1", 1, "Your aliases are split between `~/.aliases` and `aliases.zsh`, `g` is defined twice and `gco` still uses `git checkout`. I'll back the file up before editing it."),

@@ -71,6 +71,26 @@ class MessageMappingTest {
     }
 
     @Test
+    fun `tool durations start when the server ran the call`() {
+        val assistant = map(
+            """{"id":"msg_1","time":{"created":5},"type":"assistant","agent":"build",
+               "model":{"id":"m","providerID":"p"},
+               "content":[
+                 {"type":"tool","id":"call_1","name":"bash","time":{"created":6,"ran":8,"completed":12},"state":{"status":"completed","input":{},"content":[{"type":"text","text":"ok"}]}},
+                 {"type":"tool","id":"call_2","name":"read","time":{"created":6,"completed":9},"state":{"status":"completed","input":{},"content":[{"type":"text","text":"ok"}]}}
+               ]}""",
+        ) as Message.Assistant
+
+        val ran = assistant.parts[0] as Part.Tool
+        assertEquals(8L, ran.ranAt)
+        assertEquals(4L, ran.durationMs)
+        // Servers that send no `ran` fall back to the call's creation time.
+        val older = assistant.parts[1] as Part.Tool
+        assertNull(older.ranAt)
+        assertEquals(3L, older.durationMs)
+    }
+
+    @Test
     fun `streaming assistant marks open parts and failed tools`() {
         val assistant = map(
             """{"id":"msg_1","time":{"created":5},"type":"assistant","agent":"build",

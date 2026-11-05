@@ -38,6 +38,8 @@
     <string name="settings_full_commands">Show full commands</string>
     <string name="settings_tool_details">Show tool details</string>
     <string name="settings_tool_details_sub">Opening a group of tools shows each one's output or diff, not only its name</string>
+    <string name="settings_tool_durations">Show tool durations</string>
+    <string name="settings_tool_durations_sub">How long each tool call took, next to it in the tool row</string>
     <string name="settings_output_lines">Output lines</string>
     <string name="settings_output_lines_sub">Lines of command output shown before Show more</string>
     <string name="settings_keep_live_open">Keep steps open</string>

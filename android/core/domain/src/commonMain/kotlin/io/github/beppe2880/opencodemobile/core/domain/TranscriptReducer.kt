@@ -82,7 +82,7 @@ object TranscriptReducer {
         }
 
         is ServerEvent.ToolCalled -> updateTool(messages, event.messageId, event.callId) {
-            it.copy(input = event.input, status = ToolStatus.Running)
+            it.copy(input = event.input, status = ToolStatus.Running, ranAt = it.ranAt ?: event.at.takeIf { at -> at > 0 })
         }
 
         is ServerEvent.ToolProgress -> updateTool(messages, event.messageId, event.callId) {

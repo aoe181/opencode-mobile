@@ -38,6 +38,8 @@
     <string name="settings_full_commands">显示完整命令</string>
     <string name="settings_tool_details">显示工具详情</string>
     <string name="settings_tool_details_sub">展开一组工具时会显示每个工具的输出或差异，而不仅仅是名称</string>
+    <string name="settings_tool_durations">显示工具耗时</string>
+    <string name="settings_tool_durations_sub">在工具行中显示每次工具调用的耗时</string>
     <string name="settings_output_lines">输出行数</string>
     <string name="settings_output_lines_sub">工具输出在“显示更多”之前显示的行数</string>
     <string name="settings_keep_live_open">保持步骤展开</string>

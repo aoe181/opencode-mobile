@@ -22,6 +22,7 @@ enum class SettingOption(val fields: List<String>, val requires: SettingOption? 
     ExpandTools(listOf("expandToolsByDefault")),
     ToolDetails(listOf("showToolDetails")),
     FullCommands(listOf("showFullCommands")),
+    ToolDurations(listOf("showToolDurations")),
     OutputLines(listOf("outputPreviewLines")),
     ShowCost(listOf("showCost")),
     PermissionsCollapsed(listOf("permissionsCollapsed")),
@@ -88,6 +89,7 @@ val SettingsPart.options: List<SettingOption>
             SettingOption.ExpandTools,
             SettingOption.ToolDetails,
             SettingOption.FullCommands,
+            SettingOption.ToolDurations,
             SettingOption.OutputLines,
             SettingOption.GroupActivity,
         )
@@ -98,6 +100,7 @@ val SettingsPart.options: List<SettingOption>
             SettingOption.ExpandTools,
             SettingOption.ToolDetails,
             SettingOption.FullCommands,
+            SettingOption.ToolDurations,
             SettingOption.OutputLines,
         )
         SettingsPart.Footer -> listOf(SettingOption.ShowCost)

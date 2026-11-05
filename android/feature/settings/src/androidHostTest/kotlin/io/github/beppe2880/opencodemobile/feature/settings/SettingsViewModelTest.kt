@@ -83,6 +83,7 @@ class SettingsViewModelTest {
         vm.onEvent(SettingsEvent.DictationChanged(false))
         vm.onEvent(SettingsEvent.FollowRunningToolsChanged(false))
         vm.onEvent(SettingsEvent.ShowFullCommandsChanged(true))
+        vm.onEvent(SettingsEvent.ShowToolDurationsChanged(false))
         vm.onEvent(SettingsEvent.ShowToolDetailsChanged(false))
         vm.onEvent(SettingsEvent.TerminalOpenKeyboardChanged(false))
         vm.onEvent(SettingsEvent.TerminalFullscreenByDefaultChanged(true))
@@ -115,6 +116,7 @@ class SettingsViewModelTest {
                 liveReads = true,
                 liveOther = true,
                 showFullCommands = true,
+                showToolDurations = false,
                 showToolDetails = false,
                 terminalOpenKeyboard = false,
                 terminalFullscreenByDefault = true,

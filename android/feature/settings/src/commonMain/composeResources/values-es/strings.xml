@@ -38,6 +38,8 @@
     <string name="settings_full_commands">Mostrar comandos completos</string>
     <string name="settings_tool_details">Mostrar detalles de las herramientas</string>
     <string name="settings_tool_details_sub">Al abrir un grupo de herramientas se muestra la salida o el diff de cada una, no solo su nombre</string>
+    <string name="settings_tool_durations">Mostrar la duración de las herramientas</string>
+    <string name="settings_tool_durations_sub">Cuánto tardó cada llamada, junto a ella en la fila de la herramienta</string>
     <string name="settings_output_lines">Líneas de salida</string>
     <string name="settings_output_lines_sub">Líneas de salida de un comando que se muestran antes de «Mostrar más»</string>
     <string name="settings_keep_live_open">Mantener pasos abiertos</string>

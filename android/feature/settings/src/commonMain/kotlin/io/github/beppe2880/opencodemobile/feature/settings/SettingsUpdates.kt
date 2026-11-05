@@ -14,6 +14,7 @@ internal fun AppSettings.updatedBy(event: SettingsEvent): AppSettings? = when (e
     is SettingsEvent.LiveReadsChanged -> copy(liveReads = event.enabled)
     is SettingsEvent.LiveOtherChanged -> copy(liveOther = event.enabled)
     is SettingsEvent.ShowFullCommandsChanged -> copy(showFullCommands = event.enabled)
+    is SettingsEvent.ShowToolDurationsChanged -> copy(showToolDurations = event.enabled)
     is SettingsEvent.ShowToolDetailsChanged -> copy(showToolDetails = event.enabled)
     is SettingsEvent.TerminalOpenKeyboardChanged -> copy(terminalOpenKeyboard = event.enabled)
     is SettingsEvent.TerminalFullscreenByDefaultChanged -> copy(terminalFullscreenByDefault = event.enabled)

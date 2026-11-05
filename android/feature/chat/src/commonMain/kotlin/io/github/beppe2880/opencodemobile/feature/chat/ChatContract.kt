@@ -64,6 +64,8 @@ data class ChatState(
     val showToolDetails: Boolean = true,
     /** Tool rows wrap long commands and paths (setting). */
     val showFullCommands: Boolean = false,
+    /** Tool rows end with how long the call took (setting). */
+    val showToolDurations: Boolean = true,
     val showCost: Boolean = true,
     val agentColorOutline: Boolean = true,
     /** The microphone button of the composer (setting). */
@@ -158,6 +160,7 @@ internal fun ChatState.withSettings(s: AppSettings): ChatState = copy(
     expandToolsByDefault = s.expandToolsByDefault,
     live = LiveFollow.of(s),
     showFullCommands = s.showFullCommands,
+    showToolDurations = s.showToolDurations,
     showToolDetails = s.showToolDetails,
     outputPreviewLines = s.outputPreviewLines,
     keepLiveStepsOpen = s.keepLiveStepsOpen,

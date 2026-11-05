@@ -72,7 +72,7 @@ fun OpenCodeEvent.toDomain(): ServerEvent? = when (this) {
         ServerEvent.ToolInputEnded(sessionID, assistantMessageID, id, text)
     }
     is OpenCodeEvent.SessiontoolcalledWrapper -> with(value.data) {
-        ServerEvent.ToolCalled(sessionID, assistantMessageID, id, input.toString())
+        ServerEvent.ToolCalled(sessionID, assistantMessageID, id, input.toString(), value.created.toLong())
     }
     is OpenCodeEvent.SessiontoolprogressWrapper -> with(value.data) {
         ServerEvent.ToolProgress(sessionID, assistantMessageID, id, metadata.toStringMap())

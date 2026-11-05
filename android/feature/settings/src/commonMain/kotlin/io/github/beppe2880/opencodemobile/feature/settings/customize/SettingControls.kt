@@ -52,6 +52,8 @@ import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_fo
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_follow_running_sub
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_full_commands
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_full_commands_sub
+import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_tool_durations
+import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_tool_durations_sub
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_group_activity
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_group_activity_sub
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_group_thoughts
@@ -195,6 +197,7 @@ internal val SettingOption.titleRes: StringResource
         SettingOption.ExpandTools -> Res.string.settings_expand_tools
         SettingOption.ToolDetails -> Res.string.settings_tool_details
         SettingOption.FullCommands -> Res.string.settings_full_commands
+        SettingOption.ToolDurations -> Res.string.settings_tool_durations
         SettingOption.OutputLines -> Res.string.settings_output_lines
         SettingOption.ShowCost -> Res.string.settings_show_cost
         SettingOption.PermissionsCollapsed -> Res.string.settings_permissions_collapsed
@@ -251,6 +254,7 @@ internal val SettingOption.descriptionRes: StringResource
         SettingOption.ExpandTools -> Res.string.settings_expand_tools_sub
         SettingOption.ToolDetails -> Res.string.settings_tool_details_sub
         SettingOption.FullCommands -> Res.string.settings_full_commands_sub
+        SettingOption.ToolDurations -> Res.string.settings_tool_durations_sub
         SettingOption.OutputLines -> Res.string.settings_output_lines_sub
         SettingOption.ShowCost -> Res.string.settings_show_cost_sub
         SettingOption.PermissionsCollapsed -> Res.string.settings_permissions_collapsed_sub
@@ -372,6 +376,7 @@ internal fun SettingOptionControl(option: SettingOption, state: SettingsState, o
         SettingOption.ExpandTools -> switch(settings.expandToolsByDefault, SettingsEvent::ExpandToolsChanged)()
         SettingOption.ToolDetails -> switch(settings.showToolDetails, SettingsEvent::ShowToolDetailsChanged)()
         SettingOption.FullCommands -> switch(settings.showFullCommands, SettingsEvent::ShowFullCommandsChanged)()
+        SettingOption.ToolDurations -> switch(settings.showToolDurations, SettingsEvent::ShowToolDurationsChanged)()
         SettingOption.OutputLines -> ChoiceRow(
             title = title,
             subtitle = subtitle,
@@ -550,6 +555,7 @@ private val SettingOption.tag: String
         SettingOption.ExpandTools -> "expand_tools"
         SettingOption.ToolDetails -> "tool_details"
         SettingOption.FullCommands -> "full_commands"
+        SettingOption.ToolDurations -> "tool_durations"
         SettingOption.ShowCost -> "show_cost"
         SettingOption.PermissionsCollapsed -> "permissions_collapsed"
         SettingOption.QuestionsCollapsed -> "questions_collapsed"

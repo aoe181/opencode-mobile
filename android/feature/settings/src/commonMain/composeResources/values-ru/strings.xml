@@ -38,6 +38,8 @@
     <string name="settings_full_commands">Показывать полные команды</string>
     <string name="settings_tool_details">Показывать детали инструментов</string>
     <string name="settings_tool_details_sub">При открытии группы инструментов показываются результат или diff каждого, а не только их названия</string>
+    <string name="settings_tool_durations">Показывать длительность инструментов</string>
+    <string name="settings_tool_durations_sub">Сколько занял каждый вызов, рядом с ним в строке инструмента</string>
     <string name="settings_output_lines">Строки вывода</string>
     <string name="settings_output_lines_sub">Число строк вывода команды, которые показываются до «Показать больше»</string>
     <string name="settings_keep_live_open">Оставлять шаги открытыми</string>

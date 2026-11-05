@@ -38,6 +38,8 @@
     <string name="settings_full_commands">Mostra comandi completi</string>
     <string name="settings_tool_details">Mostra dettagli degli strumenti</string>
     <string name="settings_tool_details_sub">Aprendo un gruppo di strumenti mostra l'output o il diff di ciascuno, non solo il nome</string>
+    <string name="settings_tool_durations">Mostra la durata degli strumenti</string>
+    <string name="settings_tool_durations_sub">Quanto è durata ogni chiamata, accanto allo strumento nella riga</string>
     <string name="settings_output_lines">Righe di output</string>
     <string name="settings_output_lines_sub">Righe di output del comando mostrate prima di «Mostra di più»</string>
     <string name="settings_keep_live_open">Mantieni i passaggi aperti</string>

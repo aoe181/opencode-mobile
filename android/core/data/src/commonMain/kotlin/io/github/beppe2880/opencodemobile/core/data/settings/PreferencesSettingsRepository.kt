@@ -48,6 +48,7 @@ internal class PreferencesSettingsRepository(private val prefs: Settings) : Sett
         prefs.putBoolean(KEY_LIVE_READS, next.liveReads)
         prefs.putBoolean(KEY_LIVE_OTHER, next.liveOther)
         prefs.putBoolean(KEY_FULL_COMMANDS, next.showFullCommands)
+        prefs.putBoolean(KEY_TOOL_DURATIONS, next.showToolDurations)
         prefs.putBoolean(KEY_TOOL_DETAILS, next.showToolDetails)
         prefs.putInt(KEY_OUTPUT_LINES, next.outputPreviewLines)
         prefs.putLong(KEY_LIVE_INTERVAL, next.liveOutputIntervalMs)
@@ -116,6 +117,7 @@ internal class PreferencesSettingsRepository(private val prefs: Settings) : Sett
             liveReads = prefs.getBoolean(KEY_LIVE_READS, defaults.liveReads),
             liveOther = prefs.getBoolean(KEY_LIVE_OTHER, defaults.liveOther),
             showFullCommands = prefs.getBoolean(KEY_FULL_COMMANDS, defaults.showFullCommands),
+            showToolDurations = prefs.getBoolean(KEY_TOOL_DURATIONS, defaults.showToolDurations),
             showToolDetails = prefs.getBoolean(KEY_TOOL_DETAILS, defaults.showToolDetails),
             outputPreviewLines = prefs.getInt(KEY_OUTPUT_LINES, defaults.outputPreviewLines)
                 .takeIf { it in OUTPUT_LINE_CHOICES } ?: defaults.outputPreviewLines,
@@ -191,6 +193,7 @@ internal class PreferencesSettingsRepository(private val prefs: Settings) : Sett
         const val KEY_LIVE_READS = "live_reads"
         const val KEY_LIVE_OTHER = "live_other"
         const val KEY_FULL_COMMANDS = "show_full_commands"
+        const val KEY_TOOL_DURATIONS = "show_tool_durations"
         const val KEY_TOOL_DETAILS = "show_tool_details"
         const val KEY_OUTPUT_LINES = "output_preview_lines"
         const val KEY_LIVE_INTERVAL = "live_output_interval_ms"

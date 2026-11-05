@@ -119,6 +119,7 @@ val SettingsArea.groups: List<OptionGroup>
                     SettingOption.ExpandTools,
                     SettingOption.ToolDetails,
                     SettingOption.FullCommands,
+                    SettingOption.ToolDurations,
                     SettingOption.ShowCost,
                 ),
             ),

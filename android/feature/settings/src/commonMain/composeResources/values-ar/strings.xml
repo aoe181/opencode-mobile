@@ -38,6 +38,8 @@
     <string name="settings_full_commands">عرض الأوامر كاملة</string>
     <string name="settings_tool_details">عرض تفاصيل الأدوات</string>
     <string name="settings_tool_details_sub">فتح مجموعة من الأدوات يعرض مخرجات كل أداة وفرق تعديلها، لا اسمها فقط</string>
+    <string name="settings_tool_durations">إظهار مدة الأدوات</string>
+    <string name="settings_tool_durations_sub">كم استغرق كل استدعاء أداة، بجانبه في صف الأداة</string>
     <string name="settings_output_lines">أسطر المخرجات</string>
     <string name="settings_output_lines_sub">عدد أسطر مخرجات الأمر المعروضة قبل «عرض المزيد»</string>
     <string name="settings_keep_live_open">إبقاء الخطوات مفتوحة</string>

@@ -77,7 +77,7 @@ class TranscriptReducerTest {
 
         val done = reduce(
             ServerEvent.ToolInputEnded(session, message, call, "{\"path\": \"a\"}"),
-            ServerEvent.ToolCalled(session, message, call, "{\"path\":\"a\"}"),
+            ServerEvent.ToolCalled(session, message, call, "{\"path\":\"a\"}", at = 13),
             ServerEvent.ToolProgress(session, message, call, mapOf("lines" to "1")),
             ServerEvent.ToolSucceeded(session, message, call, "hello", mapOf("truncated" to "false"), at = 14),
             from = streamingInput,
@@ -91,10 +91,13 @@ class TranscriptReducerTest {
                 output = "hello",
                 metadata = mapOf("lines" to "1", "truncated" to "false"),
                 startedAt = 12,
+                ranAt = 13,
                 completedAt = 14,
             ),
             done,
         )
+        // The duration counts from when the server ran the call, not from its streaming input.
+        assertEquals(1L, done.durationMs)
     }
 
     @Test

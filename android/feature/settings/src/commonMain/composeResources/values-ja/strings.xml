@@ -38,6 +38,8 @@
     <string name="settings_full_commands">完全なコマンドを表示</string>
     <string name="settings_tool_details">ツールの詳細を表示</string>
     <string name="settings_tool_details_sub">ツールのグループを開くと、名前だけでなく各ツールの出力や差分が表示されます</string>
+    <string name="settings_tool_durations">ツールの所要時間を表示</string>
+    <string name="settings_tool_durations_sub">各ツール呼び出しにかかった時間をツール行に表示します</string>
     <string name="settings_output_lines">出力行数</string>
     <string name="settings_output_lines_sub">「もっと表示」の前に表示するコマンド出力の行数</string>
     <string name="settings_keep_live_open">ステップを開いたままにする</string>

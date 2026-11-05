@@ -107,12 +107,27 @@ sealed interface Part {
         val output: String? = null,
         val error: String? = null,
         val metadata: Map<String, String> = emptyMap(),
+        /** When the call was created, before its input finished streaming. */
         val startedAt: Long? = null,
+        /** When the server began running the tool (`time.ran`); what its duration counts from. */
+        val ranAt: Long? = null,
         val completedAt: Long? = null,
         /** File changes made by the tool (edit, write, patch), in display order. */
         val diffs: List<FileDiff> = emptyList(),
     ) : Part {
         override val key: String get() = "tool-$callId"
+
+        /**
+         * How long the tool took, on the server clock: from when the server ran it (`ran`) to
+         * when it finished, so the time spent streaming its input is left out. Older servers
+         * send no `ran`, and the call's creation time stands in for it.
+         */
+        val durationMs: Long?
+            get() {
+                val start = ranAt ?: startedAt ?: return null
+                val end = completedAt ?: return null
+                return (end - start).coerceAtLeast(0)
+            }
     }
 }
 

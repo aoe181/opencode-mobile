@@ -80,6 +80,7 @@ class PreferencesRepositoriesTest {
             permissionsCollapsed = true,
             terminalKeys = keys,
             outputPreviewLines = 24,
+            showToolDurations = false,
             liveOutputIntervalMs = 3_000,
             keepLiveStepsOpen = true,
             chatTextScale = 1.15f,

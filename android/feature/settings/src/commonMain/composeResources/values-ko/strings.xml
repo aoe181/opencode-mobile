@@ -38,6 +38,8 @@
     <string name="settings_full_commands">전체 명령 표시</string>
     <string name="settings_tool_details">도구 세부 정보 표시</string>
     <string name="settings_tool_details_sub">도구 그룹을 열면 이름만이 아니라 각 도구의 출력 또는 diff가 표시됩니다</string>
+    <string name="settings_tool_durations">도구 소요 시간 표시</string>
+    <string name="settings_tool_durations_sub">각 도구 호출에 걸린 시간을 도구 행에 표시합니다</string>
     <string name="settings_output_lines">출력 줄 수</string>
     <string name="settings_output_lines_sub">「더 보기」 전에 표시되는 명령 출력 줄 수</string>
     <string name="settings_keep_live_open">단계 펼침 유지</string>

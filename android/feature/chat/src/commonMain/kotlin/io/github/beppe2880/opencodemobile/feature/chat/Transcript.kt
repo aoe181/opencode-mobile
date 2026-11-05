@@ -355,6 +355,7 @@ internal fun TranscriptItem(
             modifier = modifier,
             live = state.live,
             fullCommands = state.showFullCommands,
+            showDurations = state.showToolDurations,
             inLiveGroup = item.key == liveGroupKey,
             details = state.showToolDetails || keptOpen(item.key),
         )
@@ -372,6 +373,7 @@ internal fun TranscriptItem(
             modifier = modifier,
             live = state.live,
             fullCommands = state.showFullCommands,
+            showDurations = state.showToolDurations,
         )
         is ChatItem.Error -> ErrorRow(item, modifier)
         is ChatItem.Notice -> NoticeRow(

@@ -74,6 +74,8 @@ internal fun ToolsGroup(
     onOpenFile: (String) -> Unit = {},
     live: LiveFollow? = null,
     fullCommands: Boolean = false,
+    /** Rows end with how long each tool took (setting). */
+    showDurations: Boolean = false,
     /** The agent is still working on this group: the tools [live] covers stay open. */
     inLiveGroup: Boolean = false,
     /** Rows open on their output when the group opens; tapping one folds it. */
@@ -114,6 +116,7 @@ internal fun ToolsGroup(
                         live = live,
                         inLiveGroup = inLiveGroup,
                         fullCommand = fullCommands,
+                        showDuration = showDurations,
                     )
                 }
             }
@@ -135,6 +138,8 @@ internal fun ActivityGroup(
     onOpenFile: (String) -> Unit = {},
     live: LiveFollow? = null,
     fullCommands: Boolean = false,
+    /** Rows end with how long each tool took (setting). */
+    showDurations: Boolean = false,
     /** The agent is still working on this group: its newest tools stay open between calls. */
     inLiveGroup: Boolean = false,
     /** Inner tool groups open with every tool's output when this group opens. */
@@ -189,6 +194,7 @@ internal fun ActivityGroup(
                             onOpenFile = onOpenFile,
                             live = live,
                             fullCommands = fullCommands,
+                            showDurations = showDurations,
                             inLiveGroup = inLiveGroup && entry === latestTools,
                             details = details,
                         )
@@ -257,6 +263,7 @@ private fun ToolRow(
     live: LiveFollow?,
     inLiveGroup: Boolean,
     fullCommand: Boolean,
+    showDuration: Boolean,
 ) {
     val c = OcTheme.colors
     val child = SessionInsights.childSession(tool)
@@ -323,6 +330,9 @@ private fun ToolRow(
                         modifier = Modifier.size(36.dp).testTag("chat_open_subagent_${tool.callId}"),
                     )
                 }
+                if (showDuration) {
+                    ToolDuration(tool, Modifier.testTag("chat_tool_duration_${tool.callId}"))
+                }
                 ToolStatusIcon(tool.status)
             }
             if (wrapArgument) {
@@ -358,6 +368,27 @@ private fun ToolDiffs(tool: Part.Tool, directory: String, full: Boolean, onToggl
             FileDiffView(diff, directory, full, onToggleFull, onOpenFile = onOpenFile?.takeIf { diff.status != "deleted" }?.let { open -> { open(diff.path) } })
         }
     }
+}
+
+/**
+ * How long [tool] took, written like the duration of a thought ("Thought for 9s"), in the color
+ * of its outcome: green when it succeeded, red when it failed. Finished calls only.
+ */
+@Composable
+private fun ToolDuration(tool: Part.Tool, modifier: Modifier = Modifier) {
+    val millis = tool.durationMs?.takeIf { it > 0 } ?: return
+    val color = when (tool.status) {
+        ToolStatus.Completed -> OcTheme.colors.success.fg
+        ToolStatus.Error -> OcTheme.colors.danger.fg
+        else -> OcTheme.colors.textMuted
+    }
+    Text(
+        formatDuration(millis),
+        style = MaterialTheme.typography.bodySmall,
+        color = color,
+        maxLines = 1,
+        modifier = modifier,
+    )
 }
 
 @Composable

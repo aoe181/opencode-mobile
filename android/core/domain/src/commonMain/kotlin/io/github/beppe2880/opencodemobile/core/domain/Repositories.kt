@@ -369,6 +369,8 @@ data class AppSettings(
     val showToolDetails: Boolean = true,
     /** Long commands and paths in tool rows wrap instead of being cut to one line. */
     val showFullCommands: Boolean = false,
+    /** How long each tool call took, next to its status in the tool row. */
+    val showToolDurations: Boolean = true,
     /** Cost of each turn in the turn footer. */
     val showCost: Boolean = true,
     /** What the line under the chat title shows. */

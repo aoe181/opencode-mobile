@@ -38,6 +38,8 @@
     <string name="settings_full_commands">Vollständige Befehle anzeigen</string>
     <string name="settings_tool_details">Werkzeugdetails anzeigen</string>
     <string name="settings_tool_details_sub">Beim Öffnen einer Werkzeuggruppe werden Ausgabe oder Diff jedes Werkzeugs angezeigt, nicht nur sein Name</string>
+    <string name="settings_tool_durations">Werkzeugdauer anzeigen</string>
+    <string name="settings_tool_durations_sub">Wie lange jeder Werkzeugaufruf gedauert hat, daneben in der Werkzeugzeile</string>
     <string name="settings_output_lines">Ausgabezeilen</string>
     <string name="settings_output_lines_sub">Anzahl der Befehlsausgabezeilen, die vor „Mehr anzeigen“ angezeigt werden</string>
     <string name="settings_keep_live_open">Schritte geöffnet lassen</string>

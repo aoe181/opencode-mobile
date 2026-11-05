@@ -398,7 +398,7 @@ internal class FakeChat(private val store: FakeStore, private val events: FakeEv
         }
         send(ServerEvent.ReasoningEnded(sessionId, id, 0, "", System.currentTimeMillis()))
         send(ServerEvent.ToolInputStarted(sessionId, id, "c_$id", "read", System.currentTimeMillis()))
-        send(ServerEvent.ToolCalled(sessionId, id, "c_$id", """{"filePath":"${session?.directory}/README.md"}"""))
+        send(ServerEvent.ToolCalled(sessionId, id, "c_$id", """{"filePath":"${session?.directory}/README.md"}""", System.currentTimeMillis()))
         delay(700)
         send(ServerEvent.ToolSucceeded(sessionId, id, "c_$id", "1: # Project\n2: Sample readme", emptyMap(), System.currentTimeMillis()))
         val answer = "You asked: **${prompt.take(60)}**.\n\nThis is the demo, so this reply is scripted and nothing left your phone. Connected to your OpenCode server, the agent would answer here while it reads and edits your project, with `inline code` and code blocks like this one:\n\n```kotlin\nfun main() = println(\"hello\")\n```\n\nTo try it for real, tap **Exit demo** and connect your server."

@@ -128,6 +128,7 @@ private fun SessionMessageAssistantTool.toDomain(): Part.Tool {
         status = ToolStatus.Streaming,
         input = "",
         startedAt = time.created.toLong(),
+        ranAt = time.ran?.toLong(),
         completedAt = time.completed?.toLong(),
     )
     return when (val state = state) {

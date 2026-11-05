@@ -122,6 +122,7 @@ sealed interface SettingsEvent {
     data class LiveReadsChanged(val enabled: Boolean) : SettingsEvent
     data class LiveOtherChanged(val enabled: Boolean) : SettingsEvent
     data class ShowFullCommandsChanged(val enabled: Boolean) : SettingsEvent
+    data class ShowToolDurationsChanged(val enabled: Boolean) : SettingsEvent
     data class ShowToolDetailsChanged(val enabled: Boolean) : SettingsEvent
     data class TerminalOpenKeyboardChanged(val enabled: Boolean) : SettingsEvent
     data class TerminalFullscreenByDefaultChanged(val enabled: Boolean) : SettingsEvent
