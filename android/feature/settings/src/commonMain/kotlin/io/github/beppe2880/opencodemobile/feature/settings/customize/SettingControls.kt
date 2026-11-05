@@ -52,8 +52,6 @@ import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_fo
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_follow_running_sub
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_full_commands
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_full_commands_sub
-import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_tool_durations
-import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_tool_durations_sub
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_group_activity
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_group_activity_sub
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_group_thoughts
@@ -155,6 +153,8 @@ import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_th
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_theme_system
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_tool_details
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_tool_details_sub
+import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_tool_durations
+import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_tool_durations_sub
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_update_notice
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_update_notice_banner
 import io.github.beppe2880.opencodemobile.feature.settings.resources.settings_update_notice_banner_sub

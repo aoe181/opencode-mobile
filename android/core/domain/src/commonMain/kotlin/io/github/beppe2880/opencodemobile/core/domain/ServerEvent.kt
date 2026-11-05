@@ -64,6 +64,7 @@ sealed interface ServerEvent {
     data class ToolInputStarted(override val sessionId: String, val messageId: String, val callId: String, val name: String, val at: Long) : SessionScoped
     data class ToolInputDelta(override val sessionId: String, val messageId: String, val callId: String, val delta: String) : SessionScoped
     data class ToolInputEnded(override val sessionId: String, val messageId: String, val callId: String, val text: String) : SessionScoped
+
     /** The input is complete and the server starts running the tool at [at] (0 when unknown). */
     data class ToolCalled(override val sessionId: String, val messageId: String, val callId: String, val input: String, val at: Long = 0L) : SessionScoped
     data class ToolProgress(override val sessionId: String, val messageId: String, val callId: String, val metadata: Map<String, String>) : SessionScoped
