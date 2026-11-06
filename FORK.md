@@ -9,18 +9,21 @@ Actions 里有两个只属于 fork 的工作流：
 
 | 工作流 | 用途 |
 |---|---|
-| **Sync and build APK**（`sync-and-build.yml`） | 一键：把上游 `main` 合并进当前分支并编译 APK。手动触发；每周一也会自动检查一次，上游没变化就跳过编译。 |
-| **Build APK**（`build-apk.yml`） | 只编译当前分支，不合并。打 `v*` tag 时也自动跑。 |
+| **Sync and build APK**（`sync-and-build.yml`） | 一键：把上游 `main` 合并进当前分支并编译 release APK。手动触发；每周一也会自动检查一次，上游没变化就跳过编译。 |
+| **Build APK**（`build-apk.yml`） | 只编译当前分支的 release APK，不合并。 |
 
-用法：Actions → 选工作流 → Run workflow，等下完在本次 run 的 Artifacts 里下载
+两个都只出 **release（R8 混淆 + 资源压缩）** 一种包，不再构建 debug 包。
+
+用法：Actions → 选工作流 → Run workflow，完事后在本 run 的 Artifacts 里下载
 `apk-*.zip`（里面有 APK 和 `SHA256SUMS`）。
 
 要点：
 
-- 编译需要签名密钥时，先在仓库 Secrets 里放上游 release 用的四个值：
-  `OCM_KEYSTORE_BASE64`、`OCM_KEYSTORE_PASSWORD`、`OCM_KEY_ALIAS`、`OCM_KEY_PASSWORD`。
-  有密钥时默认出 release APK（可覆盖安装已装的 release 版）；没有则出自签 debug APK
-  （包名带 `.debug`，与 release 版并存，不影响已装版本）。
+- 首次用时，在仓库 Secrets 里放上游 release 用的四个值，APK 才会用正式签名（可覆盖安装
+  已装的正式版）：`OCM_KEYSTORE_BASE64`、`OCM_KEYSTORE_PASSWORD`、`OCM_KEY_ALIAS`、
+  `OCM_KEY_PASSWORD`。
+- 没放密钥也能出包：用仓库里的 `android/debug.keystore` 签名。它能覆盖安装同样用调试密钥
+  签过的包，但装不到正式签名的版本。
 - 默认的 `GITHUB_TOKEN` 不能推送改动到 `.github/workflows/` 的文件。若想让合并结果自动
   写回分支，加一个 Secret `UPSTREAM_SYNC_TOKEN`（有 `repo` + `workflow` 权限的 PAT）。
   不加也能用：APK 照常从合并后的代码编译，只是分支上不会留下那笔合并提交。
