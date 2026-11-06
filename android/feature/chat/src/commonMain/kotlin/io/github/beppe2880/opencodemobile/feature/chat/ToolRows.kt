@@ -247,7 +247,7 @@ private fun GroupSummary(
             modifier = Modifier.weight(1f, fill = false),
         )
         // The times of the rows inside are invisible while the group is folded: the total shows here.
-        if (durationMs != null && durationMs >= 1_000) {
+        if (durationMs != null) {
             Text(
                 formatDuration(durationMs),
                 style = MaterialTheme.typography.bodySmall,
