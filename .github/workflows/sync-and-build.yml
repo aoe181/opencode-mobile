@@ -85,27 +85,38 @@ jobs:
         if: github.event_name == 'schedule' && steps.merge.outputs.state == 'uptodate'
         run: echo "Nothing new upstream, no APK to build."
 
-      - name: Restore the signing key
-        if: github.event_name != 'schedule' || steps.merge.outputs.state == 'merged'
+      - name: Prepare the signing key
         id: signing
+        if: github.event_name != 'schedule' || steps.merge.outputs.state == 'merged'
         env:
           KEYSTORE_BASE64: ${{ secrets.OCM_KEYSTORE_BASE64 }}
+          RELEASE_STORE_PASSWORD: ${{ secrets.OCM_KEYSTORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.OCM_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.OCM_KEY_PASSWORD }}
         run: |
           set -euo pipefail
-          if [ -z "$KEYSTORE_BASE64" ]; then
-            echo "::warning::OCM_KEYSTORE_BASE64 is not set: the APK is signed with the debug key."
-            exit 0
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
+            {
+              echo "OCM_KEYSTORE_FILE=$RUNNER_TEMP/release.jks"
+              echo "OCM_KEYSTORE_PASSWORD=$RELEASE_STORE_PASSWORD"
+              echo "OCM_KEY_ALIAS=$RELEASE_KEY_ALIAS"
+              echo "OCM_KEY_PASSWORD=$RELEASE_KEY_PASSWORD"
+            } >> "$GITHUB_ENV"
+            echo "Signing with the release key."
+          else
+            echo "::warning::OCM_KEYSTORE_BASE64 is not set: signing the APK with the debug keystore."
+            {
+              echo "OCM_KEYSTORE_FILE=$GITHUB_WORKSPACE/android/debug.keystore"
+              echo "OCM_KEYSTORE_PASSWORD=android"
+              echo "OCM_KEY_ALIAS=androiddebugkey"
+              echo "OCM_KEY_PASSWORD=android"
+            } >> "$GITHUB_ENV"
           fi
-          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.jks"
 
       - name: Build the release APK
         if: github.event_name != 'schedule' || steps.merge.outputs.state == 'merged'
         working-directory: android
-        env:
-          OCM_KEYSTORE_FILE: ${{ runner.temp }}/release.jks
-          OCM_KEYSTORE_PASSWORD: ${{ secrets.OCM_KEYSTORE_PASSWORD }}
-          OCM_KEY_ALIAS: ${{ secrets.OCM_KEY_ALIAS }}
-          OCM_KEY_PASSWORD: ${{ secrets.OCM_KEY_PASSWORD }}
         run: ./gradlew :app:assembleRelease --console=plain
 
       - name: Collect the APK
