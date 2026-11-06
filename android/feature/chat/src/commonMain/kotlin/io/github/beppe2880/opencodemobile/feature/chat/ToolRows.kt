@@ -92,6 +92,7 @@ internal fun ToolsGroup(
             expanded = open,
             onToggle = { onToggle("g:${item.key}") },
             testTag = "chat_tools_${item.key}",
+            durationMs = item.durationMs.takeIf { showDurations },
         )
         AnimatedVisibility(visible = open) {
             Column(
@@ -162,6 +163,7 @@ internal fun ActivityGroup(
             expanded = open,
             onToggle = { onToggle("a:${item.key}") },
             testTag = "chat_activity_${item.key}",
+            durationMs = item.toolsMs.takeIf { showDurations },
         )
         AnimatedVisibility(visible = open) {
             Column(
@@ -232,6 +234,7 @@ private fun GroupSummary(
     expanded: Boolean,
     onToggle: () -> Unit,
     testTag: String,
+    durationMs: Long? = null,
 ) {
     val c = OcTheme.colors
     DisclosureRow(expanded = expanded, onToggle = onToggle, testTag = testTag) {
@@ -243,6 +246,16 @@ private fun GroupSummary(
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(1f, fill = false),
         )
+        // The times of the rows inside are invisible while the group is folded: the total shows here.
+        if (durationMs != null && durationMs >= 1_000) {
+            Text(
+                formatDuration(durationMs),
+                style = MaterialTheme.typography.bodySmall,
+                color = if (failed) c.danger.fg else c.success.fg,
+                maxLines = 1,
+                modifier = Modifier.testTag("${testTag}_duration"),
+            )
+        }
         when {
             running -> OcSpinner(size = 10.dp)
             failed -> Icon(Icons.Outlined.ErrorOutline, stringResource(Res.string.chat_tool_failed), tint = c.danger.fg, modifier = Modifier.size(14.dp))

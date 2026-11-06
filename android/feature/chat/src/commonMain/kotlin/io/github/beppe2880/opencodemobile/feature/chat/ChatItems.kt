@@ -56,6 +56,10 @@ sealed interface ChatItem {
     data class Tools(override val key: String, val tools: List<Part.Tool>) : ChatItem {
         val running: Boolean get() = tools.any { it.status == ToolStatus.Running || it.status == ToolStatus.Streaming }
         val failed: Int get() = tools.count { it.status == ToolStatus.Error }
+
+        /** What the group took in all, summing the finished calls; null until one has finished. */
+        val durationMs: Long?
+            get() = tools.mapNotNull { it.durationMs?.takeIf { millis -> millis > 0 } }.takeIf { it.isNotEmpty() }?.sum()
     }
     data class Error(override val key: String, val text: String) : ChatItem
     data class Notice(override val key: String, val kind: NoticeKind, val text: String) : ChatItem
@@ -97,6 +101,10 @@ sealed interface ChatItem {
                 }
             }
         val thinkingMs: Long get() = thoughts.sumOf { it.durationMs ?: 0L }
+
+        /** What the tools of the group took in all; null until one has finished. */
+        val toolsMs: Long?
+            get() = entries.filterIsInstance<Tools>().mapNotNull { it.durationMs }.takeIf { it.isNotEmpty() }?.sum()
         val running: Boolean
             get() = entries.any { (it is Tools && it.running) || (it is Reasoning && it.streaming) || (it is Thoughts && it.streaming) }
         val failed: Int get() = tools.count { it.status == ToolStatus.Error }

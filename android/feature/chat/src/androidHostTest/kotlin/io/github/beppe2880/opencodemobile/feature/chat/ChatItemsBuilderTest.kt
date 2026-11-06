@@ -44,6 +44,39 @@ class ChatItemsBuilderTest {
     }
 
     @Test
+    fun `tool groups carry the total time of their finished calls`() {
+        val done = Part.Tool(
+            callId = "1",
+            name = "bash",
+            status = ToolStatus.Completed,
+            input = "{}",
+            ranAt = 1_000,
+            completedAt = 3_500,
+        )
+        val alsoDone = done.copy(callId = "2", ranAt = 4_000, completedAt = 5_000)
+        val running = done.copy(callId = "3", status = ToolStatus.Running, ranAt = 6_000, completedAt = null)
+        assertEquals(3_500L, ChatItem.Tools("t", listOf(done, alsoDone, running)).durationMs)
+        // Nothing finished yet: no total to show.
+        assertEquals(null, ChatItem.Tools("t", listOf(running)).durationMs)
+    }
+
+    @Test
+    fun `an activity row totals its tool groups`() {
+        val first = Part.Tool("1", "bash", ToolStatus.Completed, "{}", ranAt = 0, completedAt = 2_000)
+        val second = Part.Tool("2", "read", ToolStatus.Completed, "{}", ranAt = 0, completedAt = 1_000)
+        val item = ChatItem.Activity(
+            key = "a",
+            entries = listOf(
+                ChatItem.Tools("g1", listOf(first)),
+                ChatItem.Reasoning("r", "thought", streaming = false, durationMs = 5_000),
+                ChatItem.Tools("g2", listOf(second)),
+            ),
+        )
+        assertEquals(3_000L, item.toolsMs)
+        assertEquals(5_000L, item.thinkingMs)
+    }
+
+    @Test
     fun `tool groups keep unique keys when call ids repeat across steps`() {
         val messages = listOf(
             Message.User("u1", 0, "hi"),
